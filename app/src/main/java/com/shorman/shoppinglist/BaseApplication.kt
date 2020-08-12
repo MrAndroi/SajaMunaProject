@@ -8,6 +8,8 @@ class BaseApplication :Application(){
 
     override fun onCreate() {
         super.onCreate()
+
+        sami shorman
     }
 
 }
