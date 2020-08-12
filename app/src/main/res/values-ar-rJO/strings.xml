@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">قائمة التسوق</string>
+    <string name="user_name_hint">اسم المستخدم</string>
+    <string name="sendForText">اكتب اسم المستخدم الذي تريد ارسال القائمة له</string>
+    <string name="add_a_new_shopping_item">إضافة عنصر جديد</string>
+    <string name="name_hint">الأسم</string>
+    <string name="amount">الكمية</string>
+    <string name="add">إضافه</string>
+    <string name="cancel">إلغاء</string>
+    <string name="price_for_one_item">السعر للعنصر الواحد</string>
+    <string name="choose_a_unique_nickname">أختر أسم فريد</string>
+    <string name="nickname">الأسم المميز</string>
+    <string name="save">حفظ</string>
+    <string name="total_price">السعر الكلي</string>
+    <string name="logged_in_as">"مسجل بأسم: "</string>
+    <string name="user_name">اسم  المستخدم</string>
+    <string name="sender_name">اسم المرسل</string>
+    <string name="check">تحقق</string>
+    <string name="clear">حدف القائمة</string>
+    <string name="u_don_t_have_any_receved_lists">ليس لديك أي قوائم مستلمة</string>
+    <string name="name">الأسم</string>
+    <string name="price">السعر</string>
+    <string name="username2">اسم المستخدم:</string>
+    <string name="nickname2">الأسم المميز:</string>
+    <string name="new_nickname_saved">تم تغيير الأسم المميز</string>
+    <string name="must">يجب أن يحتوي الاسم المميز على 6 أحرف على الأقل</string>
+    <string name="your_nickname_now">اسمك المميز الان:</string>
+    <string name="you_have_new_list">لديك قائمة جديدة</string>
+    <string name="new_list_recived">وصلت قائمة جديدة</string>
+    <string name="u_dont_have_any_list_to_send">ليس لديك أي قائمة لإرسالها</string>
+    <string name="confirm">تأكيد</string>
+    <string name="are_u_sure_u_want">هل أنت متأكد أنك تريد إرسال قائمتك إلى</string>
+    <string name="cleared">تم الحدف</string>
+    <string name="please_enter_vaild_name">الرجاء إدخال اسم صحيح</string>
+    <string name="please_enter_vaild_amount">الرجاء إدخال كمية صحيحة</string>
+    <string name="u_cant_use_this_feature">لا يمكنك استخدام هذه الميزة بدون الإنترنت</string>
+    <string name="list_sent_to">"أرسلت القائمة ل "</string>
+    <string name="u_cant_add_less_than_1">لا يمكنك وضع الكمية اقل من صفر</string>
+    <string name="sign_out">تسجيل خروج</string>
+    <string name="change_nickname">تغيير الأسم المميز</string>
+</resources>
