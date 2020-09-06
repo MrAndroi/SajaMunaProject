@@ -39,4 +39,9 @@
     <string name="u_cant_add_less_than_1">لا يمكنك وضع الكمية اقل من صفر</string>
     <string name="sign_out">تسجيل خروج</string>
     <string name="change_nickname">تغيير الأسم المميز</string>
+    <string name="saved_successfully_as">تم الحفظ بنجاح بـأسم:</string>
+    <string name="u_cant_leave_empty_filed">لا يمكنك ترك أحد الحقول فارغه</string>
+    <string name="edit">"تعديل: "</string>
+    <string name="long_click">نقره طويلة لتعديل العنصر</string>
+    <string name="edit_mode">وضع التعديل</string>
 </resources>

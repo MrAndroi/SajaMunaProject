@@ -1,6 +1,7 @@
 package com.shorman.shoppinglist.ui.activities
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,10 +14,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.transition.Slide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
@@ -63,6 +66,18 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        enterTransition = MaterialContainerTransform().apply {
+            startView = requireActivity().findViewById(R.id.fabSend)
+            endView = searchContainer
+            duration = 500
+            scrimColor = Color.TRANSPARENT
+            containerColor = Color.BLACK
+        }
+        returnTransition = Slide().apply {
+            addTarget(searchContainer)
+            duration=500
+        }
 
         MobileAds.initialize(requireContext(), "ca-app-pub-1259439794687303~2448597653")
         mInterstitialAd = InterstitialAd(requireContext())

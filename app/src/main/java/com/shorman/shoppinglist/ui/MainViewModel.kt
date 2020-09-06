@@ -12,10 +12,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(val repo:Repository):ViewModel() {
 
-    val isIncreaseClicked = MutableLiveData<Boolean>()
-    val isDecreamnetClicked = MutableLiveData<Boolean>()
-    val isDeleteClicked= MutableLiveData<Boolean>()
-    val isAddClicked = MutableLiveData<Boolean>()
+    val totalPrice = repo.getTotalPrice()
     val navigateToLoaclFragment = MutableLiveData<Boolean>()
 
     fun insertShoppingItem(shoppingItem: ShoppingItem)=viewModelScope.launch {
@@ -31,28 +28,6 @@ class MainViewModel @ViewModelInject constructor(val repo:Repository):ViewModel(
     }
 
     fun getShoppingItems() = repo.getAllItems()
-
-    suspend fun getTotalPrice() : Float {
-        return repo.getTotalPrice()
-    }
-
-    fun increaseClicked(){
-        isIncreaseClicked.value = true
-        isDecreamnetClicked.value=false
-    }
-
-    fun decraseClicked(){
-        isDecreamnetClicked.value = true
-        isIncreaseClicked.value=true
-    }
-
-    fun deleteClicked(){
-        isDeleteClicked.value = true
-    }
-
-   fun addClicked(){
-       isAddClicked.value = true
-   }
 
    fun deleteTable() = viewModelScope.launch {
        repo.deleteTable()

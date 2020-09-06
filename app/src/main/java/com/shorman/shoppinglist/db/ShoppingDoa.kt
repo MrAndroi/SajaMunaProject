@@ -19,8 +19,8 @@ interface ShoppingDoa {
     @Update
     suspend fun updateItem(shoppingItem: ShoppingItem)
 
-   @Query("SELECT SUM(totalPrice) FROM shopping_items")
-   suspend fun getTotalPrices():Float
+    @Query("SELECT SUM(totalPrice) FROM shopping_items")
+    fun getTotalPrices():LiveData<Float>
 
     @Query("DELETE FROM shopping_items")
     suspend fun deleteTable()

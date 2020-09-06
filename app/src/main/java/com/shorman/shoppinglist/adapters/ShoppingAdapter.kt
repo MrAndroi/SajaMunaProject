@@ -18,7 +18,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ShoppingAdapter(val viewModel:MainViewModel) :RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder>() {
+class ShoppingAdapter(val viewModel:MainViewModel,
+                      private val onClickListener:() -> Unit,
+                      private val onLongClickListener:(shoppingItem:ShoppingItem,item:View) -> Boolean)
+    :RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder>() {
 
 
     inner class ShoppingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {}
@@ -58,7 +61,6 @@ class ShoppingAdapter(val viewModel:MainViewModel) :RecyclerView.Adapter<Shoppin
                     shoppingItem.quantity--
                     shoppingItem.totalPrice = shoppingItem.price * shoppingItem.quantity
                     viewModel.updateItem(shoppingItem)
-                    viewModel.decraseClicked()
                 }
 
             }
@@ -67,12 +69,13 @@ class ShoppingAdapter(val viewModel:MainViewModel) :RecyclerView.Adapter<Shoppin
                     shoppingItem.quantity++
                     shoppingItem.totalPrice = shoppingItem.price*shoppingItem.quantity
                     viewModel.updateItem(shoppingItem)
-                    viewModel.increaseClicked()
-
                 }
 
 
             tvPrice.text = shoppingItem.price.toString()+" $"
+
+            setOnClickListener { onClickListener() }
+            setOnLongClickListener { onLongClickListener(shoppingItem,it) }
 
         }
     }

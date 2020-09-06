@@ -18,11 +18,8 @@ class AddShoppingItemDialog(context: Context, var addDialogListener: AddDialogLi
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_add_shopping_item)
 
-
-
         btnSave.setOnClickListener {
             try {
-                viewModel.addClicked()
                 val name = etName.text.toString()
                 val amount = etAmount.text.toString().toInt()
                 val price = etPrice.text.toString().toFloat()

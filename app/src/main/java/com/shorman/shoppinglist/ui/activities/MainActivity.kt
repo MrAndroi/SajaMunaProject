@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         providers = Arrays.asList<AuthUI.IdpConfig>(
@@ -73,6 +74,8 @@ class MainActivity : AppCompatActivity() {
         if(FirebaseAuth.getInstance().currentUser == null) {
             showSignIn()
         }
+
+
 
     }
 

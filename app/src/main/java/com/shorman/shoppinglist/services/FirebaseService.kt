@@ -1,5 +1,6 @@
 package com.shorman.shoppinglist.services
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -16,6 +17,7 @@ import kotlin.random.Random
 
 const val CHANNEL_ID = "my_channel"
 
+@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class FirebaseService:FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {

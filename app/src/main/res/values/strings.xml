@@ -38,4 +38,9 @@
     <string name="u_cant_add_less_than_1">U can\'t add less than 0 amount</string>
     <string name="sign_out">Sign out</string>
     <string name="change_nickname">Change Nickname</string>
+    <string name="saved_successfully_as">Saved successfully as</string>
+    <string name="u_cant_leave_empty_filed">U can\'t leave empty filed</string>
+    <string name="edit">"Edit: "</string>
+    <string name="long_click">Long click to edit the item</string>
+    <string name="edit_mode">Edit mode</string>
 </resources>

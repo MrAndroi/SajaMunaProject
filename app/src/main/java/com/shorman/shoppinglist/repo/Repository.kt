@@ -1,6 +1,7 @@
 package com.shorman.shoppinglist.repo
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.shorman.shoppinglist.db.ShoppingDoa
 import com.shorman.shoppinglist.db.ShoppingItem
 import java.lang.Exception
@@ -21,13 +22,13 @@ class Repository @Inject constructor (val doa:ShoppingDoa) {
     fun getAllItems() =
         doa.getAllItems()
 
-    suspend fun getTotalPrice():Float{
+    fun getTotalPrice():LiveData<Float>{
         if(doa.getTotalPrices() == null){
-            return 0f
+            val zeroPrice = MutableLiveData<Float>()
+            zeroPrice.value = 0f
+            return zeroPrice
         }
-        else{
-            return doa.getTotalPrices()
-        }
+        return doa.getTotalPrices()
     }
 
 
