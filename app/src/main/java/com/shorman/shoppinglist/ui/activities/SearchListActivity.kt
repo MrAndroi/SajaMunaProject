@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,7 +22,6 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.gson.Gson
 import com.shorman.shoppinglist.R
 import com.shorman.shoppinglist.adapters.UserListAdapter
 import com.shorman.shoppinglist.db.ShoppingItem
@@ -39,20 +37,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 const val TOPIC = "/topics/myTopics"
 
 @AndroidEntryPoint
 class SearchListActivity:Fragment(R.layout.activity_search_list){
 
-    val viewModel:MainViewModel by viewModels()
-    val adapter = UserListAdapter()
-    var userName = FirebaseAuth.getInstance().currentUser?.displayName.toString()
-    var userId = FirebaseAuth.getInstance().currentUser?.uid
-    private var mUsers: List<User>? = null
-    var shoppingList : List<ShoppingItem> = ArrayList()
-    lateinit var sender:Sender
-    private lateinit var mInterstitialAd: InterstitialAd
+    private val viewModel:MainViewModel by viewModels()
+    private val adapter = UserListAdapter()
+    private var userName = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+    private var userId = FirebaseAuth.getInstance().currentUser?.uid
+    private  var mUsers: List<User>? = null
+    private var shoppingList : List<ShoppingItem> = ArrayList()
+    private lateinit var sender:Sender
+    private  lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,7 +79,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
             duration=500
         }
 
-        MobileAds.initialize(requireContext(), "ca-app-pub-1259439794687303~2448597653")
+        MobileAds.initialize(requireContext())
         mInterstitialAd = InterstitialAd(requireContext())
         mInterstitialAd.adUnitId = "ca-app-pub-1259439794687303/3570107631"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
@@ -96,7 +96,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
 
         etSearch.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                searchForUser(s.toString().toLowerCase())
+                searchForUser(s.toString().toLowerCase(Locale.getDefault()))
                 if(etSearch.text.equals("")){
                     (mUsers as ArrayList<User>).clear()
                 }
@@ -118,7 +118,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
             builder.setTitle(getString(R.string.confirm))
             builder.setMessage(getString(R.string.are_u_sure_u_want)+it.name)
 
-            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            builder.setPositiveButton(android.R.string.yes) { _ , _ ->
 
                 val sendListRef = FirebaseDatabase.getInstance()
                     .reference.child("/users/${it.uid}/shoppingList")
@@ -126,7 +126,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
                 val senderList = it.shoppingList
                 senderList?.add(sender)
 
-                if(shoppingList.size <= 0){
+                if(shoppingList.isEmpty()){
                     Snackbar.make(requireView(),getString(R.string.u_dont_have_any_list_to_send),Snackbar.LENGTH_SHORT).show()
                 }else {
                     sendListRef.setValue(senderList)
@@ -135,8 +135,8 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
                     PushNotification(
                         NotificationData(title, massage),
                         it.token!!
-                    ).also {
-                        sendNotification(it)
+                    ).also {pushedNotification ->
+                        sendNotification(pushedNotification)
                     }
 
                     if (mInterstitialAd.isLoaded) {
@@ -148,7 +148,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
 
             }
 
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            builder.setNegativeButton(android.R.string.no) { dialog, _ ->
                dialog.dismiss()
             }
             builder.show()
@@ -175,7 +175,7 @@ class SearchListActivity:Fragment(R.layout.activity_search_list){
 
     private fun searchForUser(name:String){
 
-        if(name.equals("")){
+        if(name == ""){
             (mUsers as ArrayList<User>).clear()
             adapter.notifyDataSetChanged()
             if (tvSearchForUser != null) {
